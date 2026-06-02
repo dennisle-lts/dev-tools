@@ -94,9 +94,11 @@ export default function TokenGenerator() {
 						</div>
 					</div>
 
-					<Button onClick={generate} disabled={noneSelected} className="w-full">
-						Generate
-					</Button>
+					<div className="flex justify-end">
+						<Button onClick={generate} disabled={noneSelected}>
+							Generate
+						</Button>
+					</div>
 				</CardContent>
 			</Card>
 
