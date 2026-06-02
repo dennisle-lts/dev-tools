@@ -26,8 +26,38 @@
 	"css": {
 		"formatter": {
 			"quoteStyle": "single"
+		},
+		"parser": {
+			"tailwindDirectives": true
+		},
+		"linter": {
+			"enabled": true
 		}
 	},
+	"overrides": [
+		{
+			"includes": ["src/components/ui/**"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noDocumentCookie": "off"
+					},
+					"correctness": {
+						"noUnusedImports": "off",
+						"useExhaustiveDependencies": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.css"],
+			"css": {
+				"parser": {
+					"allowWrongLineComments": true
+				}
+			}
+		}
+	],
 	"assist": {
 		"enabled": true,
 		"actions": {
