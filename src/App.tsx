@@ -1,4 +1,4 @@
-import { ChevronDown, KeyRound, LockKeyhole } from 'lucide-react';
+import { ChevronDown, Fingerprint, KeyRound, LockKeyhole } from 'lucide-react';
 import { useState } from 'react';
 import {
 	Collapsible,
@@ -23,8 +23,9 @@ import {
 import { TooltipProvider } from '@/components/ui/tooltip';
 import Bcrypt from '@/features/crypto/Bcrypt';
 import TokenGenerator from '@/features/crypto/TokenGenerator';
+import UUIDGenerator from '@/features/crypto/UUIDGenerator';
 
-type FeatureId = 'token-generator' | 'bcrypt';
+type FeatureId = 'token-generator' | 'bcrypt' | 'uuid-generator';
 
 interface NavItem {
 	id: FeatureId;
@@ -43,6 +44,7 @@ const NAV: NavSection[] = [
 		items: [
 			{ id: 'token-generator', label: 'Token Generator', icon: KeyRound },
 			{ id: 'bcrypt', label: 'Bcrypt', icon: LockKeyhole },
+			{ id: 'uuid-generator', label: 'UUID Generator', icon: Fingerprint },
 		],
 	},
 ];
@@ -50,6 +52,7 @@ const NAV: NavSection[] = [
 const FEATURES: Record<FeatureId, React.ReactNode> = {
 	'token-generator': <TokenGenerator />,
 	bcrypt: <Bcrypt />,
+	'uuid-generator': <UUIDGenerator />,
 };
 
 function AppSidebar({
