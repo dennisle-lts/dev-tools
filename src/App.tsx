@@ -15,9 +15,10 @@ import {
 	SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import Bcrypt from '@/features/crypto/Bcrypt';
 import TokenGenerator from '@/features/crypto/TokenGenerator';
 
-type FeatureId = 'token-generator';
+type FeatureId = 'token-generator' | 'bcrypt';
 
 interface NavItem {
 	id: FeatureId;
@@ -32,12 +33,16 @@ interface NavSection {
 const NAV: NavSection[] = [
 	{
 		label: 'Crypto',
-		items: [{ id: 'token-generator', label: 'Token Generator' }],
+		items: [
+			{ id: 'token-generator', label: 'Token Generator' },
+			{ id: 'bcrypt', label: 'Bcrypt' },
+		],
 	},
 ];
 
 const FEATURES: Record<FeatureId, React.ReactNode> = {
 	'token-generator': <TokenGenerator />,
+	bcrypt: <Bcrypt />,
 };
 
 function AppSidebar({
