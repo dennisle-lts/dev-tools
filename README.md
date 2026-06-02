@@ -1,16 +1,37 @@
-# React + Vite
+# Dev Tools
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A collection of developer utilities built with React, TypeScript, and shadcn/ui.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Runtime** — [Bun](https://bun.sh)
+- **Framework** — [React 19](https://react.dev) + [Vite 8](https://vite.dev)
+- **Language** — TypeScript
+- **UI** — [shadcn/ui](https://ui.shadcn.com) + [Tailwind CSS v4](https://tailwindcss.com)
+- **Linting & Formatting** — [Biome](https://biomejs.dev)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Crypto
 
-## Expanding the ESLint configuration
+| Tool | Description |
+|------|-------------|
+| **Token Generator** | Generate random strings using uppercase/lowercase letters, numbers, and/or symbols. Configurable length via slider. |
+| **Bcrypt** | Hash strings with bcrypt and compare a plain string against a hash. Configurable salt rounds. |
+| **UUID Generator** | Generate UUIDs in v1, v3, v4, v5, and v7 formats. Configurable count, with namespace and name inputs for v3/v5. |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+```bash
+bun install
+bun dev
+```
+
+## Other Commands
+
+```bash
+bun run build    # Production build
+bun run preview  # Preview production build
+bun run lint     # Run Biome linter
+bun run format   # Run Biome formatter
+```
