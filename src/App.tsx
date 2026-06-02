@@ -1,4 +1,5 @@
 import {
+	ArrowLeftRight,
 	ChevronDown,
 	Fingerprint,
 	KeyRound,
@@ -27,6 +28,7 @@ import {
 	SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import DateTimeConverter from '@/features/converter/DateTimeConverter';
 import Bcrypt from '@/features/crypto/Bcrypt';
 import TokenGenerator from '@/features/crypto/TokenGenerator';
 import ULIDGenerator from '@/features/crypto/ULIDGenerator';
@@ -36,7 +38,8 @@ type FeatureId =
 	| 'token-generator'
 	| 'bcrypt'
 	| 'uuid-generator'
-	| 'ulid-generator';
+	| 'ulid-generator'
+	| 'datetime-converter';
 
 interface NavItem {
 	id: FeatureId;
@@ -59,6 +62,16 @@ const NAV: NavSection[] = [
 			{ id: 'ulid-generator', label: 'ULID Generator', icon: ScanLine },
 		],
 	},
+	{
+		label: 'Converter',
+		items: [
+			{
+				id: 'datetime-converter',
+				label: 'Date-Time Converter',
+				icon: ArrowLeftRight,
+			},
+		],
+	},
 ];
 
 const FEATURES: Record<FeatureId, React.ReactNode> = {
@@ -66,6 +79,7 @@ const FEATURES: Record<FeatureId, React.ReactNode> = {
 	bcrypt: <Bcrypt />,
 	'uuid-generator': <UUIDGenerator />,
 	'ulid-generator': <ULIDGenerator />,
+	'datetime-converter': <DateTimeConverter />,
 };
 
 function AppSidebar({
