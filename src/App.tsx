@@ -5,6 +5,7 @@ import {
 	KeyRound,
 	LockKeyhole,
 	ScanLine,
+	SquareDashedBottomCode,
 } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -28,6 +29,7 @@ import {
 	SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import Base64Converter from '@/features/converter/Base64Converter';
 import DateTimeConverter from '@/features/converter/DateTimeConverter';
 import Bcrypt from '@/features/crypto/Bcrypt';
 import TokenGenerator from '@/features/crypto/TokenGenerator';
@@ -39,7 +41,8 @@ type FeatureId =
 	| 'bcrypt'
 	| 'uuid-generator'
 	| 'ulid-generator'
-	| 'datetime-converter';
+	| 'datetime-converter'
+	| 'base64';
 
 interface NavItem {
 	id: FeatureId;
@@ -70,6 +73,11 @@ const NAV: NavSection[] = [
 				label: 'Date-Time Converter',
 				icon: ArrowLeftRight,
 			},
+			{
+				id: 'base64',
+				label: 'Base64',
+				icon: SquareDashedBottomCode,
+			},
 		],
 	},
 ];
@@ -80,6 +88,7 @@ const FEATURES: Record<FeatureId, React.ReactNode> = {
 	'uuid-generator': <UUIDGenerator />,
 	'ulid-generator': <ULIDGenerator />,
 	'datetime-converter': <DateTimeConverter />,
+	base64: <Base64Converter />,
 };
 
 function AppSidebar({
