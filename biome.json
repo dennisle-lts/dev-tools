@@ -40,7 +40,8 @@
 			"linter": {
 				"rules": {
 					"suspicious": {
-						"noDocumentCookie": "off"
+						"noDocumentCookie": "off",
+						"noArrayIndexKey": "off"
 					},
 					"correctness": {
 						"noUnusedImports": "off",
