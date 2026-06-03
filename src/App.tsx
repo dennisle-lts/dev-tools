@@ -4,6 +4,7 @@ import {
 	Fingerprint,
 	KeyRound,
 	LockKeyhole,
+	Regex,
 	ScanLine,
 	SquareDashedBottomCode,
 } from 'lucide-react';
@@ -35,6 +36,7 @@ import Bcrypt from '@/features/crypto/Bcrypt';
 import TokenGenerator from '@/features/crypto/TokenGenerator';
 import ULIDGenerator from '@/features/crypto/ULIDGenerator';
 import UUIDGenerator from '@/features/crypto/UUIDGenerator';
+import RegexTool from '@/features/text/RegexTool';
 
 type FeatureId =
 	| 'token-generator'
@@ -42,7 +44,8 @@ type FeatureId =
 	| 'uuid-generator'
 	| 'ulid-generator'
 	| 'datetime-converter'
-	| 'base64';
+	| 'base64'
+	| 'regex';
 
 interface NavItem {
 	id: FeatureId;
@@ -80,6 +83,10 @@ const NAV: NavSection[] = [
 			},
 		],
 	},
+	{
+		label: 'Text',
+		items: [{ id: 'regex', label: 'Regex Tester', icon: Regex }],
+	},
 ];
 
 const FEATURES: Record<FeatureId, React.ReactNode> = {
@@ -89,6 +96,7 @@ const FEATURES: Record<FeatureId, React.ReactNode> = {
 	'ulid-generator': <ULIDGenerator />,
 	'datetime-converter': <DateTimeConverter />,
 	base64: <Base64Converter />,
+	regex: <RegexTool />,
 };
 
 function AppSidebar({

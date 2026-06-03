@@ -28,6 +28,12 @@ A collection of developer utilities built with React, TypeScript, and shadcn/ui.
 | **Date-Time Converter** | Convert a date/time into 10 common formats (ISO 8601, Unix, Mongo ObjectID, Excel, etc.) and display it across all Australian timezones + UTC. |
 | **Base64** | Encode plain text to Base64 and decode Base64 back to plain text. Supports URL-safe mode. |
 
+### Text
+
+| Tool | Description |
+|------|-------------|
+| **Regex Tester** | Test regular expressions against text in real time with match highlighting and group extraction. Includes a full cheatsheet with click-to-insert patterns. CSV mode applies a regex across all rows of a column to batch-extract data, with downloadable results. |
+
 ## Getting Started
 
 ```bash
