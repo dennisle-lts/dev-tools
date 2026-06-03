@@ -49,3 +49,65 @@ bun run preview  # Preview production build
 bun run lint     # Run Biome linter
 bun run format   # Run Biome formatter
 ```
+
+## Deployment
+
+### Static web app
+
+Build the app and serve the `dist/` folder with any static host (Cloudflare Pages, Nginx, S3, etc.).
+
+```bash
+bun run build   # output goes to dist/
+```
+
+For a quick local test of the production build:
+
+```bash
+bun run preview  # serves dist/ at http://localhost:4173
+```
+
+To deploy to **Cloudflare Pages**, connect your GitHub repo and set:
+- Build command: `bun run build`
+- Output directory: `dist`
+
+### Docker
+
+The `deploy/` folder contains everything needed to build and run the app as a Docker container.
+
+#### Build the image
+
+Builds a multi-architecture image (linux/amd64 + linux/arm64) and exports it as a versioned OCI tar file into `deploy/`.
+
+```bash
+./deploy/build-image.sh
+```
+
+The version is read from `deploy/.env`:
+
+```
+APP_VERSION=1.0.0
+```
+
+#### Deploy to a host
+
+```bash
+# 1. SFTP the deploy folder contents to the target host
+sftp user@host
+put deploy/dev-tools-<version>.tar
+put deploy/docker-compose.yml
+put deploy/.env
+
+# 2. On the target host
+docker load -i dev-tools-<version>.tar
+docker compose up -d
+```
+
+`docker-compose.yml` uses `pull_policy: never` so it only uses locally loaded images and never contacts Docker Hub.
+
+#### Releasing a new version
+
+1. Bump `version` in `package.json`
+2. Update `APP_VERSION` in `deploy/.env` to match
+3. Run `./deploy/build-image.sh`
+4. SFTP the new tar + updated `.env` to the target host
+5. On the target: `docker load -i dev-tools-<version>.tar && docker compose up -d`
