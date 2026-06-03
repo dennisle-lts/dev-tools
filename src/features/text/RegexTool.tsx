@@ -1,6 +1,12 @@
+import { ChevronDown } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -129,7 +135,7 @@ function Cheatsheet({ onInsert }: { onInsert: (pattern: string) => void }) {
 	}
 
 	return (
-		<Card className="flex flex-col overflow-hidden">
+		<Card className="flex h-full flex-col overflow-hidden">
 			<CardHeader className="border-b pb-3">
 				<CardTitle className="text-sm font-semibold">
 					Regex Cheatsheet
@@ -474,6 +480,7 @@ export default function RegexTool() {
 	const [csvCol, setCsvCol] = useState('0');
 
 	const [regexCopied, setRegexCopied] = useState(false);
+	const [cheatsheetOpen, setCheatsheetOpen] = useState(false);
 
 	const flagStr = [...flags].sort().join('');
 	const regex = buildRegex(pattern, flagStr);
@@ -523,8 +530,8 @@ export default function RegexTool() {
 	}
 
 	return (
-		<div className="flex gap-6">
-			{/* Left: tool area */}
+		<div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
+			{/* Tool area */}
 			<div className="min-w-0 flex-1 space-y-4">
 				<div>
 					<h1 className="text-2xl font-semibold tracking-tight">
@@ -560,26 +567,29 @@ export default function RegexTool() {
 				<Card>
 					<CardContent className="space-y-3 pt-6">
 						<Label>Regex Pattern</Label>
-						<div className="flex items-center gap-2">
-							<span className="shrink-0 font-mono text-muted-foreground">
-								/
-							</span>
-							<Input
-								ref={patternRef}
-								value={pattern}
-								onChange={(e) => setPattern(e.target.value)}
-								placeholder="e.g. \d{3}-\d{4}"
-								className={cn(
-									'font-mono',
-									isInvalidPattern &&
-										'border-destructive focus-visible:ring-destructive',
-								)}
-								spellCheck={false}
-							/>
-							<span className="shrink-0 font-mono text-muted-foreground">
-								/
-							</span>
-							<div className="flex shrink-0 gap-1">
+						{/* Input row: delimiter + field always together; flags wrap below on mobile */}
+						<div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+							<div className="flex min-w-0 flex-1 items-center gap-2">
+								<span className="shrink-0 font-mono text-muted-foreground">
+									/
+								</span>
+								<Input
+									ref={patternRef}
+									value={pattern}
+									onChange={(e) => setPattern(e.target.value)}
+									placeholder="e.g. \d{3}-\d{4}"
+									className={cn(
+										'font-mono',
+										isInvalidPattern &&
+											'border-destructive focus-visible:ring-destructive',
+									)}
+									spellCheck={false}
+								/>
+								<span className="shrink-0 font-mono text-muted-foreground">
+									/
+								</span>
+							</div>
+							<div className="flex gap-1">
 								{FLAG_OPTIONS.map(({ flag, desc }) => (
 									<Toggle
 										key={flag}
@@ -600,7 +610,9 @@ export default function RegexTool() {
 						)}
 						{regexLiteral && (
 							<div className="flex items-center justify-between gap-3 rounded-md bg-muted px-3 py-2">
-								<span className="font-mono text-sm">{regexLiteral}</span>
+								<span className="min-w-0 break-all font-mono text-sm">
+									{regexLiteral}
+								</span>
 								<Button
 									variant="outline"
 									size="sm"
@@ -613,6 +625,29 @@ export default function RegexTool() {
 						)}
 					</CardContent>
 				</Card>
+
+				{/* Cheatsheet — collapsible on mobile, hidden on desktop */}
+				<div className="lg:hidden">
+					<Collapsible open={cheatsheetOpen} onOpenChange={setCheatsheetOpen}>
+						<CollapsibleTrigger asChild>
+							<Button
+								variant="outline"
+								className="flex w-full items-center justify-between"
+							>
+								Regex Cheatsheet
+								<ChevronDown
+									className={cn(
+										'h-4 w-4 shrink-0 transition-transform',
+										cheatsheetOpen && 'rotate-180',
+									)}
+								/>
+							</Button>
+						</CollapsibleTrigger>
+						<CollapsibleContent className="mt-2">
+							<Cheatsheet onInsert={insertPattern} />
+						</CollapsibleContent>
+					</Collapsible>
+				</div>
 
 				{mode === 'text' ? (
 					<TextMode
@@ -637,10 +672,10 @@ export default function RegexTool() {
 				)}
 			</div>
 
-			{/* Right: sticky cheatsheet */}
-			<div className="w-72 shrink-0">
+			{/* Cheatsheet — sticky sidebar on desktop, hidden on mobile */}
+			<div className="hidden lg:block lg:w-72 lg:shrink-0">
 				<div
-					className="sticky top-6"
+					className="sticky top-6 flex flex-col"
 					style={{ maxHeight: 'calc(100vh - 5rem)' }}
 				>
 					<Cheatsheet onInsert={insertPattern} />
