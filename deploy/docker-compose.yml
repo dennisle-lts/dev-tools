@@ -1,0 +1,7 @@
+services:
+  app:
+    image: dev-tools:${APP_VERSION}
+    pull_policy: never
+    ports:
+      - "8080:80"
+    restart: unless-stopped
