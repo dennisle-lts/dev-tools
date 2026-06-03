@@ -37,6 +37,7 @@ import TokenGenerator from '@/features/crypto/TokenGenerator';
 import ULIDGenerator from '@/features/crypto/ULIDGenerator';
 import UUIDGenerator from '@/features/crypto/UUIDGenerator';
 import RegexTool from '@/features/text/RegexTool';
+import { version } from '../package.json';
 
 type FeatureId =
 	| 'token-generator'
@@ -147,7 +148,9 @@ function AppSidebar({
 				))}
 			</SidebarContent>
 			<SidebarFooter>
-				<span className="px-2 py-1 text-xs text-muted-foreground">v0.0.0</span>
+				<span className="px-2 py-1 text-xs text-muted-foreground">
+					v{version}
+				</span>
 			</SidebarFooter>
 		</Sidebar>
 	);
