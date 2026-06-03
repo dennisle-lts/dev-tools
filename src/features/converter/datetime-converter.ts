@@ -78,7 +78,7 @@ export function getFormatRows(date: Date, displayTz: string): FormatRow[] {
 	const iso9075 = d.format('YYYY-MM-DD HH:mm:ss');
 	const rfc3339 = d.format('YYYY-MM-DDTHH:mm:ssZ');
 	const rfc7231 = date.toUTCString();
-	const mongoId = unixSec.toString(16).padStart(8, '0') + '0000000000000000';
+	const mongoId = `${unixSec.toString(16).padStart(8, '0')}0000000000000000`;
 
 	// Excel serial: days since Dec 30, 1899 UTC (accounts for Excel's 1900 leap year bug)
 	const excelEpochMs = -2209161600000;
